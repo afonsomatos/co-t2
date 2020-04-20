@@ -1,7 +1,5 @@
 ## Testes para Compiladores - Parte 2
 
----
-
 **Lê isto com atenção:**
 
 O diretório `/src` contém o código da base do projeto
