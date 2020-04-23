@@ -48,5 +48,8 @@ make clean # Limpa tudo
 
 Para contribuir, podes:
 
-1. Fazer um fork do projeto, fazer as tuas alterações e depois um pull request.
-2. Pedir-me para ter acesso de escrita (através do slack (Afonso Matos)), e assim podes criar o teu branch e fazer pull request.
+Fazer um fork do projeto, fazer as tuas alterações e depois um pull request.
+
+*ou*
+
+Pedir-me para ter acesso de escrita (através do slack (Afonso Matos)), e assim podes criar o teu branch e fazer pull request.
