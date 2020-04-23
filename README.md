@@ -3,7 +3,7 @@
 **Lê isto com atenção:**
 
 O diretório `/src` contém o código da base do projeto
-como dado pelo professor (o pburg está incompleto).
+como dado pelo professor (o **pburg está incompleto**).
 
 O diretório `/test` tem todos os testes da primeira entrega, dados pelo professor, mais os testes para a segunda entrega.
 
@@ -37,6 +37,13 @@ Ao correr os testes, as pastas vão ter mais uns ficheiros:
 
 Os testes passam se os outputs e exit codes obtidos são iguais aos esperados. Ou seja, se `out == myout` e `ret == myret`.
 
+## Makefile da root
+
+O makefile da root corre o make da `src` e corre os testes do `test`.
+```sh
+make # Compila e corre os testes
+make clean # Limpa tudo
+```
 ## Como contribuir
 
 Para contribuir, podes:
