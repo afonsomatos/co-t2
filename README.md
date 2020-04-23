@@ -16,21 +16,26 @@ chmod +x p2.sh # Este comando só precisa de ser feito 1 vez
 make clean # Isto limpa os resultados anteriores
 ```
 
-Cada teste possui a sua pastinha com vários ficheiros:
+## Testes da segunda entrega
+
+Encontram-se em `test/tests_p2`.
+
+Cada grupo de testes possui a sua pastinha com um ficheiro e várias pastas:
 * `test.min` - contém o código do programa a ser testado
+* `t*` - pasta com um teste específico (t1, t2, etc.) 
 
-Depois, cada teste é formado por vários ficheiros com o mesmo nome (extensão diferente):
+Cada pasta `t*` possui os seguintes ficheiros:
 
-* `tXX.in` - input dado 
-* `tXX.out` - output esperado
-* `tXX.ret` - exit code esperado (return da main)
+* `in` - input dado 
+* `out` - output esperado
+* `ret` - exit code esperado (return da main)
 
 Ao correr os testes, as pastas vão ter mais uns ficheiros:
-* `tXX.myout` - output obtido
-* `tXX.diff` - diferenças entre o `tXX.myout` e `tXX.out` (literalmente um diff)
-* `tXX.myret` - exit code obtido
+* `myret` - exit code obtido
+* `myout` - output obtido
+* `diff` - diferenças entre o `myout` e `out` (literalmente um diff)
 
-Os testes passam se os outputs e exit codes obtidos são iguais aos esperados. Ou seja, se `tXX.out == tXX.myout` e `tXX.ret == tXX.myret`.
+Os testes passam se os outputs e exit codes obtidos são iguais aos esperados. Ou seja, se `out == myout` e `ret == myret`.
 
 ## Como contribuir
 
