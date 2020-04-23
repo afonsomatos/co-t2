@@ -13,32 +13,19 @@ fi
 
 count=$(find "$root" | grep test.min | wc -l)
 echo "$count tests were detected"
-echo
 
 # Compile
 cd ../src
 srcDir=$(pwd)
-make clean && make
+{ make clean; make; } > /dev/null 
 if [[ $? -ne 0 ]]; then
     echo "make failed!"
     exit 1
 fi
-cd -
-
-level=0
-pass=0
-total=0
-
-function secho {
-    for d in $(seq 1 $level); do
-        printf "  "
-    done
-    printf "$1\n"
-}
+cd - > /dev/null
 
 function testDir {
-    secho "\e[33m$(basename $1)\e[0m"
-    ((level++))
+    echo -e "\e[33m$(basename $1)\e[0m"
     local save=$(pwd)
     cd $1
     if [[ -f "test.min" ]]; then
@@ -51,61 +38,53 @@ function testDir {
         make out &> /dev/null
         mv out $this/a.out
         cd - &> /dev/null
-
-
-        for f in $(ls | grep "\.in"); do
-
-            base=$(basename $f .in)
+        
+        # Look into test folders
+        for d in $(ls -d t*/); do
+            cd $d
 
             # Run test
-            ./a.out < $f > $base.myout
-            echo $? > $base.myret 
+            ../a.out < "in" > "myout"
+            echo $? > "myret"
 
             # Check output
-            diff $base.myout $base.out > $base.diff
+            diff "myout" "out" > "diff"
             equal=$?
             
             # Assume ret code of 0
-            if [[ ! -f $base.ret ]]; then
-                echo 0 > $base.ret
+            if [[ ! -f "ret" ]]; then
+                echo 0 > "ret"
             fi
 
-            diff $base.myret $base.ret -q &>/dev/null
+            diff "myret" "ret" -q &>/dev/null
             equalRet=$?
-
+            
             if [[ $equal -eq 0 ]] && [[ $equalRet -eq 0 ]]; then
-                secho "\e[36m$f\e[0m - \e[32mPASSED\e[0m"
+                echo -e "\e[36m$d\e[0m - \e[32mPASSED\e[0m"
                 ((pass++))
             else
-                secho "\e[36m$f\e[0m - \e[31mFAILED\e[0m"
-                ((level++))
-                if [[ ! $equal ]]; then
-                    secho "out files differ"
-                else
-                    secho "$(printf "ret code differs: expected %s but got %s" $(cat $base.ret)  $(cat $base.myret))"
+                echo -e "\e[36m$d\e[0m - \e[31mFAILED\e[0m"
+                if [[ $equal -ne 0 ]]; then
+                    echo -e "out files differ"
                 fi
-                ((level--))
+                if [[ $equalRet -ne 0 ]]; then
+                    echo -e "ret code differs: expected $(cat "ret") but got $(cat "myret")"
+                fi
             fi
             ((total++))
+            cd - > /dev/null
         done
 
     fi
-    for f in $(ls -d */ 2>/dev/null); do
-        testDir $f
-    done
     cd $save
-    ((level--))
 }
 
-results=""
+pass=0
+total=0
 cd $root
+
 for l in $(ls -d */ 2>/dev/null); do
-   pass=0
-   total=0
-   testDir "$l"
-   l=$(basename $l)
-   results=$results"$l\tpassed $pass/$total\n"
+    testDir "$l"
 done
 
-echo
-echo -e "\e[1;35mresults\e[0m\n"$results | column -ts $'\t'
+echo "passed $pass/$total"
