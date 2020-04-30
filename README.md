@@ -1,5 +1,7 @@
 ## Testes para Compiladores - Parte 2
 
+**Renomear minor-RENAME-THIS.brg para minor.brg na pasta src.**
+
 **Lê isto com atenção:**
 
 O diretório `/src` contém o código da base do projeto
