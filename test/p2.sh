@@ -44,6 +44,12 @@ function testDir {
             cd $d
 
             # Run test
+
+            # Create empty input if not present
+            if [[ ! -f "in" ]]; then
+                touch "in"
+            fi
+
             ../a.out < "in" > "myout"
             echo $? > "myret"
 
