@@ -4,8 +4,8 @@ root=tests_p2
 # Test part 1
 output=$(./p1.sh)
 if [[ $? -ne 0 ]]; then
-    echo "part 1 tests not passing:"
-    echo "$output" | grep FAILED
+    echo "some part 1 tests not passing"
+    echo "$output" #| grep FAILED
     #exit 1
 else
     echo "part 1 tests passing"

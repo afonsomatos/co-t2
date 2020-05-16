@@ -37,12 +37,18 @@ failed="\e[31mFAILED\e[0m"
 # These tests should pass
 echo " ===== PASS TESTS ===== [should compile]"
 for f in $(find tests_p1/pass -name "*.min"); do
-	"$srcDir/$exe" < $f &> /dev/null
+	output=$("$srcDir/$exe" -trace < $f 2>&1)# &> /dev/null
 	if [ $? -ne 0 ]; then
 		echo -e $failed $f
 	else
-        ((pass++))
-		echo -e $passed $f
+        echo "$output" | grep "selection successful" 
+        if [ $? -ne 0 ]; then
+            echo "burg selection was not successful"
+		    echo -e $failed $f
+        else
+            ((pass++))
+            echo -e $passed $f
+        fi
 	fi
     ((total++))
 done
