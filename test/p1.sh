@@ -4,7 +4,7 @@ srcDir=../src	    			# Compiler make-file directory
 exe="minor"
 
 # Go to source directory and make compiler
-cd $srcDir
+cd "$srcDir"
 srcDir=$(pwd)
 {
 make clean
@@ -70,7 +70,7 @@ echo " ===== STATUS ===== "
 echo passed $pass/$total
 
 # Clean source directory
-cd $srcDir
+cd "$srcDir"
 # make clean > /dev/null
 
 exit $((($total-$pass)?1:0))
