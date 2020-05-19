@@ -11,8 +11,8 @@ else
     echo "part 1 tests passing"
 fi
 
-count=$(find "$root" | grep test.min | wc -l)
-echo "$count tests were detected"
+count=$(find "$root" | grep "\.min" | wc -l)
+echo "$count test files were detected"
 
 # Compile
 cd ../src
@@ -28,17 +28,17 @@ function testDir {
     echo -e "\e[33m$(basename $1)\e[0m"
     local save=$(pwd)
     cd $1
-    if [[ -f "test.min" ]]; then
+    if ls *.min &> /dev/null; then
         
-        # Generate program
-        this=$(pwd)
-        $srcDir/minor < "test.min" &> /dev/null
-        cp out.asm $srcDir
-        cd $srcDir
-        make out &> /dev/null
-        mv out $this/a.out
-        cd - &> /dev/null
-        
+        rm -f *.o *.asm
+        for p in *.min; do
+            $srcDir/minor < $p &> /dev/null 
+            base=$(basename $p .min)
+            mv out.asm $base.asm
+            nasm -felf32 $base.asm -o $base.o
+        done
+        ld -m elf_i386 *.o $srcDir/libminor.a -o a.out
+    
         # Look into test folders
         for d in $(ls -d t*/); do
             cd $d
