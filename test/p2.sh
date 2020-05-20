@@ -44,13 +44,17 @@ function testDir {
             cd $d
 
             # Run test
+            args=""
+            if [[ -f "args" ]]; then
+                args=$(cat args)
+            fi
 
             # Create empty input if not present
             if [[ ! -f "in" ]]; then
                 touch "in"
             fi
 
-            ../a.out < "in" > "myout"
+            ../a.out $args < "in" > "myout"
             echo $? > "myret"
 
             # Check output
