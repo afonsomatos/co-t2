@@ -15,7 +15,7 @@ O diretório `/test` tem todos os testes da primeira entrega, dados pelo profess
 cd test
 chmod +x p1.sh
 chmod +x p2.sh # Este comando só precisa de ser feito 1 vez
-make test
+make
 make clean # Isto limpa os resultados anteriores
 ```
 
