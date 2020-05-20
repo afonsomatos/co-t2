@@ -1,4 +1,4 @@
-#minor.brg
+minor.brg
 lex.yy.c
 yyselect.c
 y.output
