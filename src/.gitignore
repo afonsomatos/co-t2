@@ -4,7 +4,3 @@ yyselect.c
 y.output
 y.tab.c
 y.tab.h
-*.o
-*.asm
-*.out
-*.a
