@@ -2,6 +2,7 @@ program
     array z[10] := 1, 2, 3, 4, 5
 start
     array x;
+    number y;
 
     x := z + 1;
     x[0]! "\n"!
@@ -11,4 +12,9 @@ start
 
     x := ((z + 2) - 1);
     x[0]! "\n"!
+
+
+    y := (x + 1) - x;
+    y! "\n"!
+    
 end
